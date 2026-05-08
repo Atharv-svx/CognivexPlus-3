@@ -2,64 +2,127 @@ const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 
-const sidebar = document.querySelector(".sidebar");
-const menuBtn = document.getElementById("menu-btn");
-const overlay = document.getElementById("overlay");
-
-/* ---------------- SIDEBAR ---------------- */
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.add("active");
-  overlay.classList.add("active");
-});
-
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("active");
-  overlay.classList.remove("active");
-});
-
-/* ---------------- MESSAGE ---------------- */
+// ------------------------------
+// ADD MESSAGE
+// ------------------------------
 function addMessage(role, text) {
-  const div = document.createElement("div");
-  div.classList.add("message", role);
-  div.innerHTML = window.marked
-    ? marked.parse(text || "")
-    : text;
-  chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  return div;
+
+    const div = document.createElement("div");
+
+    div.classList.add("message", role);
+
+    div.innerText = text || "";
+
+    chatBox.appendChild(div);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    return div;
 }
 
-/* ---------------- ENTER FIX ---------------- */
+// ------------------------------
+// TYPEWRITER EFFECT
+// ------------------------------
+async function typeText(element, text, speed = 30) {
+
+    element.innerText = "";
+
+    for (let i = 0; i < text.length; i++) {
+
+        element.innerText += text.charAt(i);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        await new Promise(resolve =>
+            setTimeout(resolve, speed)
+        );
+    }
+}
+
+// ------------------------------
+// ENTER KEY HANDLING
+// ------------------------------
 input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
+
+    // Shift + Enter = new line
+    if (e.key === "Enter" && e.shiftKey) {
+        return;
+    }
+
+    // Enter = send
+    if (e.key === "Enter") {
+
+        e.preventDefault();
+
+        sendMessage();
+    }
 });
 
-/* ---------------- SEND MESSAGE ---------------- */
+// ------------------------------
+// SEND MESSAGE
+// ------------------------------
 async function sendMessage() {
-  const text = input.value.trim();
-  if (!text) return;
 
-  addMessage("user", text);
-  input.value = "";
+    const text = input.value.trim();
 
-  const aiMsg = addMessage("assistant", "Thinking...");
+    if (!text) return;
 
-  try {
-    const res = await fetch("https://cognivexplus-3-2.onrender.com/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
-    });
+    // user message
+    addMessage("user", text);
 
-    const data = await res.json();
-    aiMsg.innerHTML = marked.parse(data.reply || "No response");
+    input.value = "";
 
-  } catch (err) {
-    aiMsg.innerText = "Error connecting to backend.";
-  }
+    // reset textarea height
+    input.style.height = "auto";
+
+    // assistant placeholder
+    const aiMsg = addMessage("assistant", "Thinking...");
+
+    try {
+
+        const res = await fetch(
+            "https://cognivexplus-9.onrender.com/chat",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        const reply = data.reply || "No response";
+
+        // typewriter animation
+        await typeText(aiMsg, reply, 30);
+
+    } catch (err) {
+
+        console.error(err);
+
+        aiMsg.innerText = "Error connecting to AI backend.";
+    }
+
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// ------------------------------
+// SEND BUTTON
+// ------------------------------
 sendBtn.addEventListener("click", sendMessage);
+
+// ------------------------------
+// AUTO RESIZE TEXTAREA
+// ------------------------------
+input.addEventListener("input", () => {
+
+    input.style.height = "auto";
+
+    input.style.height = input.scrollHeight + "px";
+});
