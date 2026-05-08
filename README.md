@@ -61,4 +61,4 @@ CognivexPlus/
 ### 1. Clone project
 ```bash
 git clone <your-repo-link>
-cd Desktop\CognivexPlus
+cd Desktop\CognivexPlus\backend
