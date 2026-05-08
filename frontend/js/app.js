@@ -21,7 +21,9 @@ overlay.addEventListener("click", () => {
 function addMessage(role, text) {
   const div = document.createElement("div");
   div.classList.add("message", role);
-  div.innerHTML = marked.parse(text || "");
+  div.innerHTML = window.marked
+    ? marked.parse(text || "")
+    : text;
   chatBox.appendChild(div);
   chatBox.scrollTop = chatBox.scrollHeight;
   return div;
