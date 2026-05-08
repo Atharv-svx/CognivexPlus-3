@@ -1,6 +1,6 @@
-from core.ai_engine import generate_response
-from memory.store import save_memory
-from database.db import conn
+from fastapi import APIRouter
+from pydantic import BaseModel
+from core.ai_client import client
 
 router = APIRouter()
 
@@ -8,6 +8,26 @@ class ChatRequest(BaseModel):
     message: str
 
 @router.post("/chat")
-def chat(req: ChatRequest):
-    reply = generate_response(req.message)
-    return {"reply": reply}
+async def chat(req: ChatRequest):
+
+    try:
+
+        completion = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "user",
+                    "content": req.message
+                }
+            ]
+        )
+
+        return {
+            "reply": completion.choices[0].message.content
+        }
+
+    except Exception as e:
+
+        return {
+            "error": str(e)
+        }
