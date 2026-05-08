@@ -46,7 +46,7 @@ async function sendMessage() {
   const aiMsg = addMessage("assistant", "Thinking...");
 
   try {
-    const res = await fetch("https://cognivexplus-9.onrender.com/chat", {
+    const res = await fetch("https://cognivexplus-3-2.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text })
