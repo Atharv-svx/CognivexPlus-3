@@ -73,7 +73,9 @@ body {
     cursor: pointer;
 }
 
-/* LOGO */
+/* =========================
+   LOGO
+========================= */
 .logo {
     display: flex;
     align-items: center;
@@ -84,8 +86,16 @@ body {
     font-weight: bold;
 }
 
-.logo i {
-    color: #00bfff;
+/* LOGO IMAGE */
+.logo-img {
+    width: 36px;
+    height: 36px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
 }
 
 /* =========================
@@ -287,5 +297,10 @@ body {
     #send-btn {
         width: 44px;
         height: 44px;
+    }
+
+    .logo-img {
+        width: 32px;
+        height: 32px;
     }
 }
