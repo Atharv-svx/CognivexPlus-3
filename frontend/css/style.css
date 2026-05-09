@@ -1,60 +1,79 @@
-/* RESET */
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BODY */
+/* =========================
+   BODY
+========================= */
 body {
     font-family: Arial, sans-serif;
     background: #0d0d0d;
     color: white;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 }
 
-/* MAIN APP */
+/* =========================
+   APP CONTAINER
+========================= */
 .app {
-    width: 100%;
-    max-width: 420px;
-    height: 100vh;
+    width: 100vw;
+    height: 100dvh;
 
     background: #111;
 
     display: flex;
     flex-direction: column;
 
-    border-left: 1px solid #222;
-    border-right: 1px solid #222;
+    overflow: hidden;
 }
 
-/* HEADER */
+/* =========================
+   TOP BAR
+========================= */
 .top-bar {
     height: 65px;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
+
+    gap: 14px;
 
     padding: 0 18px;
 
+    background: #151515;
+
     border-bottom: 1px solid #222;
 
-    background: #151515;
+    flex-shrink: 0;
 }
 
+/* MENU BUTTON */
+.menu-btn {
+    background: transparent;
+    border: none;
+
+    color: white;
+
+    font-size: 1.1rem;
+
+    cursor: pointer;
+}
+
+/* LOGO */
 .logo {
     display: flex;
     align-items: center;
+
     gap: 10px;
 
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: bold;
 }
 
@@ -62,15 +81,9 @@ body {
     color: #00bfff;
 }
 
-.menu-btn {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-/* CHAT AREA */
+/* =========================
+   CHAT AREA
+========================= */
 .chat-area {
     flex: 1;
 
@@ -80,24 +93,32 @@ body {
 
     display: flex;
     flex-direction: column;
+
     gap: 16px;
+
+    min-height: 0;
 
     scroll-behavior: smooth;
 }
 
-/* MESSAGES */
+/* =========================
+   MESSAGE LAYOUT
+========================= */
 .message {
     display: flex;
 }
 
+/* USER MESSAGE */
 .message.user {
     justify-content: flex-end;
 }
 
+/* BOT MESSAGE */
 .message.bot {
     justify-content: flex-start;
 }
 
+/* MESSAGE BUBBLE */
 .bubble {
     max-width: 80%;
 
@@ -106,40 +127,47 @@ body {
     border-radius: 18px;
 
     line-height: 1.5;
+
     font-size: 0.95rem;
 
     word-wrap: break-word;
 }
 
-/* USER MESSAGE */
+/* USER BUBBLE */
 .user .bubble {
     background: #00bfff;
+
     color: white;
 
     border-bottom-right-radius: 5px;
 }
 
-/* BOT MESSAGE */
+/* BOT BUBBLE */
 .bot .bubble {
     background: #1f1f1f;
 
     border-bottom-left-radius: 5px;
 }
 
-/* INPUT AREA */
+/* =========================
+   INPUT AREA
+========================= */
 .input-area {
     display: flex;
     align-items: center;
+
     gap: 10px;
 
-    padding: 14px;
+    padding: 12px;
+
+    background: #151515;
 
     border-top: 1px solid #222;
 
-    background: #151515;
+    flex-shrink: 0;
 }
 
-/* TEXTAREA */
+/* TEXT INPUT */
 #user-input {
     flex: 1;
 
@@ -149,6 +177,7 @@ body {
     outline: none;
 
     background: #222;
+
     color: white;
 
     padding: 14px;
@@ -158,6 +187,7 @@ body {
     font-size: 0.95rem;
 
     max-height: 120px;
+
     overflow-y: auto;
 }
 
@@ -167,9 +197,11 @@ body {
     height: 48px;
 
     border: none;
+
     border-radius: 50%;
 
     background: #00bfff;
+
     color: white;
 
     font-size: 1rem;
@@ -179,26 +211,35 @@ body {
     transition: 0.2s;
 }
 
+/* BUTTON HOVER */
 #send-btn:hover {
     transform: scale(1.05);
 }
 
-/* SCROLLBAR */
+/* =========================
+   SCROLLBAR
+========================= */
 .chat-area::-webkit-scrollbar {
     width: 5px;
 }
 
 .chat-area::-webkit-scrollbar-thumb {
     background: #333;
+
     border-radius: 10px;
 }
 
-/* MOBILE RESPONSIVE */
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 @media (max-width: 480px) {
 
-    .app {
-        max-width: 100%;
-        border: none;
+    .top-bar {
+        padding: 0 14px;
+    }
+
+    .chat-area {
+        padding: 14px;
     }
 
     .bubble {
@@ -206,12 +247,13 @@ body {
         font-size: 0.92rem;
     }
 
-    .top-bar {
-        padding: 0 14px;
-    }
-
     .input-area {
         padding: 10px;
+    }
+
+    #user-input {
+        font-size: 0.9rem;
+        padding: 12px;
     }
 
     #send-btn {
