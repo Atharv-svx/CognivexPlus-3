@@ -125,4 +125,4 @@ input.addEventListener("input", () => {
     input.style.height = "auto";
 
     input.style.height = input.scrollHeight + "px";
-});
+});`

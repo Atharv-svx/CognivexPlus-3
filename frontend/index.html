@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cognivex+</title>
 
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="style.css" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cognivex+</title>
-
-  <link rel="stylesheet" href="css/style.css"/>
+    <!-- Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 </head>
-
 <body>
 
-<div class="app">
+    <div class="app">
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="logo">Cognivex+</div>
-    <button id="new-chat">+ New Chat</button>
-    <div id="chat-list"></div>
-  </div>
+        <!-- Header -->
+        <header class="top-bar">
+            <div class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <span>Cognivex+</span>
+            </div>
 
-  <!-- OVERLAY (mobile) -->
-  <div id="overlay" class="overlay"></div>
+            <button class="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </header>
 
-  <!-- MAIN -->
-  <div class="main">
+        <!-- Chat Area -->
+        <main class="chat-area" id="chat-area">
 
-    <!-- HEADER -->
-    <div class="header">
-      <button id="menu-btn" class="menu-btn">☰</button>
+            <div class="message bot">
+                <div class="bubble">
+                    Hello! I’m Cognivex+ 🚀
+                </div>
+            </div>
 
-      <div class="header-title">
-        <img src="assets/logo.png" class="logo-img" />
-        <span>Cognivex+</span>
-      </div>
+        </main>
+
+        <!-- Input Area -->
+        <div class="input-area">
+
+            <textarea
+                id="user-input"
+                placeholder="Message Cognivex+..."
+                rows="1"
+            ></textarea>
+
+            <button id="send-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+
+        </div>
+
     </div>
 
-    <!-- CHAT BOX -->
-    <div id="chat-box" class="chat-box"></div>
-
-    <!-- INPUT -->
-    <div class="input-area">
-      <textarea id="chat-input" placeholder="Message Cognivex+..."></textarea>
-      <button id="send-btn">Send</button>
-    </div>
-
-  </div>
-</div>
-
-<!-- Markdown -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-<!-- Highlight.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-<!-- App -->
-<script src="js/app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
