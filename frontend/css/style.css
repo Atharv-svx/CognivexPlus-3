@@ -1,15 +1,11 @@
-/* =========================
-   RESET
-========================= */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* =========================
-   BODY
-========================= */
+/* BODY */
 body {
     font-family: Arial, sans-serif;
     background: #0d0d0d;
@@ -19,199 +15,141 @@ body {
     overflow: hidden;
 }
 
-/* =========================
-   APP CONTAINER
-========================= */
+/* APP LAYOUT */
 .app {
+    display: flex;
+
     width: 100%;
-    max-width: 1400px;
-
     height: 100dvh;
+}
 
-    margin: auto;
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 260px;
+    background: #0f0f0f;
 
-    background: #111;
+    border-right: 1px solid #222;
+
+    padding: 15px;
+}
+
+.sidebar-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 12px;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    background: #1f1f1f;
+}
+
+/* ================= MAIN ================= */
+.main {
+    flex: 1;
 
     display: flex;
     flex-direction: column;
 
-    overflow: hidden;
-
-    border-left: 1px solid #222;
-    border-right: 1px solid #222;
+    height: 100dvh;
 }
 
-/* =========================
-   TOP BAR
-========================= */
+/* TOP BAR */
 .top-bar {
     height: 65px;
 
     display: flex;
     align-items: center;
 
-    gap: 14px;
+    gap: 12px;
 
-    padding: 0 18px;
+    padding: 0 15px;
 
     background: #151515;
 
     border-bottom: 1px solid #222;
-
-    flex-shrink: 0;
 }
 
-/* MENU BUTTON */
 .menu-btn {
-    background: transparent;
+    background: none;
     border: none;
 
     color: white;
 
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 
     cursor: pointer;
 }
 
-/* =========================
-   LOGO
-========================= */
+/* LOGO */
 .logo {
     display: flex;
     align-items: center;
 
     gap: 10px;
 
-    font-size: 1.15rem;
     font-weight: bold;
 }
 
-/* LOGO IMAGE */
 .logo-img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+
+    border-radius: 8px;
 
     object-fit: cover;
-
-    border-radius: 10px;
-
-    box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
 }
 
-/* =========================
-   CHAT AREA
-========================= */
+/* CHAT */
 .chat-area {
     flex: 1;
 
+    padding: 18px;
+
     overflow-y: auto;
-
-    padding: 20px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 16px;
-
-    min-height: 0;
-
-    scroll-behavior: smooth;
 }
 
-/* =========================
-   MESSAGE LAYOUT
-========================= */
-.message {
-    display: flex;
-}
-
-/* USER MESSAGE */
-.message.user {
-    justify-content: flex-end;
-}
-
-/* BOT MESSAGE */
-.message.bot {
-    justify-content: flex-start;
-}
-
-/* MESSAGE BUBBLE */
-.bubble {
-    max-width: 75%;
-
-    padding: 14px 16px;
-
-    border-radius: 18px;
-
-    line-height: 1.5;
-
-    font-size: 0.96rem;
-
-    word-wrap: break-word;
-}
-
-/* USER BUBBLE */
-.user .bubble {
-    background: #00bfff;
-
-    color: white;
-
-    border-bottom-right-radius: 5px;
-}
-
-/* BOT BUBBLE */
-.bot .bubble {
-    background: #1f1f1f;
-
-    border-bottom-left-radius: 5px;
-}
-
-/* =========================
-   INPUT AREA
-========================= */
+/* INPUT */
 .input-area {
     display: flex;
-    align-items: center;
 
     gap: 10px;
 
-    padding: 14px 18px;
+    padding: 12px;
 
     background: #151515;
 
     border-top: 1px solid #222;
-
-    flex-shrink: 0;
 }
 
-/* TEXT INPUT */
 #user-input {
     flex: 1;
-
-    resize: none;
 
     border: none;
     outline: none;
 
     background: #222;
-
     color: white;
 
-    padding: 14px;
+    padding: 12px;
 
-    border-radius: 14px;
-
-    font-size: 0.95rem;
-
-    max-height: 120px;
-
-    overflow-y: auto;
+    border-radius: 12px;
 }
 
-/* SEND BUTTON */
 #send-btn {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
 
     border: none;
 
@@ -221,86 +159,27 @@ body {
 
     color: white;
 
-    font-size: 1rem;
-
     cursor: pointer;
-
-    transition: 0.2s;
 }
 
-/* BUTTON HOVER */
-#send-btn:hover {
-    transform: scale(1.05);
-}
-
-/* =========================
-   SCROLLBAR
-========================= */
-.chat-area::-webkit-scrollbar {
-    width: 5px;
-}
-
-.chat-area::-webkit-scrollbar-thumb {
-    background: #333;
-
-    border-radius: 10px;
-}
-
-/* =========================
-   TABLET
-========================= */
-@media (max-width: 1024px) {
-
-    .bubble {
-        max-width: 82%;
-    }
-
-}
-
-/* =========================
-   MOBILE
-========================= */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
 
-    .app {
-        width: 100vw;
-        max-width: 100%;
+    .sidebar {
+        position: fixed;
 
-        border-left: none;
-        border-right: none;
+        left: -260px;
+        top: 0;
+
+        height: 100dvh;
+
+        z-index: 1000;
+
+        transition: 0.3s;
     }
 
-    .top-bar {
-        padding: 0 14px;
+    .sidebar.active {
+        left: 0;
     }
 
-    .chat-area {
-        padding: 14px;
-    }
-
-    .bubble {
-        max-width: 88%;
-
-        font-size: 0.92rem;
-    }
-
-    .input-area {
-        padding: 10px;
-    }
-
-    #user-input {
-        font-size: 0.9rem;
-
-        padding: 12px;
-    }
-
-    #send-btn {
-        width: 44px;
-        height: 44px;
-    }
-
-    .logo-img {
-        width: 32px;
-        height: 32px;
-    }
 }
