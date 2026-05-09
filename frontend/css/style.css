@@ -1,15 +1,12 @@
-/* =========================
-   RESET
-========================= */
+
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* =========================
-   BODY
-========================= */
+/* ================= BODY ================= */
 body {
     font-family: Arial, sans-serif;
     background: #0d0d0d;
@@ -19,9 +16,7 @@ body {
     overflow: hidden;
 }
 
-/* =========================
-   APP LAYOUT
-========================= */
+/* ================= APP ================= */
 .app {
     display: flex;
 
@@ -29,11 +24,10 @@ body {
     height: 100dvh;
 }
 
-/* =========================
-   SIDEBAR (DESKTOP DEFAULT)
-========================= */
+/* ================= SIDEBAR (DESKTOP) ================= */
 .sidebar {
     width: 260px;
+
     background: #0f0f0f;
 
     border-right: 1px solid #222;
@@ -54,6 +48,7 @@ body {
 
 .sidebar li {
     padding: 12px;
+
     border-radius: 8px;
 
     cursor: pointer;
@@ -63,9 +58,7 @@ body {
     background: #1f1f1f;
 }
 
-/* =========================
-   MAIN AREA
-========================= */
+/* ================= MAIN ================= */
 .main {
     flex: 1;
 
@@ -75,9 +68,7 @@ body {
     height: 100dvh;
 }
 
-/* =========================
-   TOP BAR
-========================= */
+/* ================= TOP BAR ================= */
 .top-bar {
     height: 65px;
 
@@ -93,7 +84,7 @@ body {
     border-bottom: 1px solid #222;
 }
 
-/* MENU BUTTON (hidden on desktop) */
+/* MENU BUTTON */
 .menu-btn {
     display: none;
 
@@ -121,27 +112,68 @@ body {
     width: 32px;
     height: 32px;
 
-    object-fit: cover;
-
     border-radius: 8px;
+
+    object-fit: cover;
 }
 
-/* =========================
-   CHAT AREA
-========================= */
+/* ================= CHAT ================= */
 .chat-area {
     flex: 1;
 
     padding: 18px;
 
     overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
 }
 
-/* =========================
-   INPUT AREA
-========================= */
+/* ================= MESSAGES ================= */
+.message {
+    display: flex;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.bot {
+    justify-content: flex-start;
+}
+
+.bubble {
+    max-width: 75%;
+
+    padding: 14px 16px;
+
+    border-radius: 18px;
+
+    font-size: 0.95rem;
+
+    line-height: 1.4;
+
+    word-wrap: break-word;
+}
+
+.user .bubble {
+    background: #00bfff;
+
+    border-bottom-right-radius: 5px;
+}
+
+.bot .bubble {
+    background: #1f1f1f;
+
+    border-bottom-left-radius: 5px;
+}
+
+/* ================= INPUT ================= */
 .input-area {
     display: flex;
+    align-items: flex-end;
 
     gap: 10px;
 
@@ -150,10 +182,14 @@ body {
     background: #151515;
 
     border-top: 1px solid #222;
+
+    flex-shrink: 0;
 }
 
 #user-input {
     flex: 1;
+
+    resize: none;
 
     border: none;
     outline: none;
@@ -161,9 +197,17 @@ body {
     background: #222;
     color: white;
 
-    padding: 12px;
+    padding: 12px 14px;
 
-    border-radius: 12px;
+    border-radius: 14px;
+
+    font-size: 0.95rem;
+
+    max-height: 140px;
+
+    overflow-y: auto;
+
+    line-height: 1.4;
 }
 
 #send-btn {
@@ -181,17 +225,13 @@ body {
     cursor: pointer;
 }
 
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
 
-    /* show menu button only on mobile */
     .menu-btn {
         display: block;
     }
 
-    /* sidebar becomes sliding drawer */
     .sidebar {
         position: fixed;
 

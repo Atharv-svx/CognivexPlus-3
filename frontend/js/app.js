@@ -1,128 +1,94 @@
-const chatBox = document.getElementById("chat-box");
-const input = document.getElementById("chat-input");
-const sendBtn = document.getElementById("send-btn");
 
-// ------------------------------
-// ADD MESSAGE
-// ------------------------------
-function addMessage(role, text) {
-
-    const div = document.createElement("div");
-
-    div.classList.add("message", role);
-
-    div.innerText = text || "";
-
-    chatBox.appendChild(div);
-
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    return div;
+/* ================= SIDEBAR ================= */
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
 }
 
-// ------------------------------
-// TYPEWRITER EFFECT
-// ------------------------------
-async function typeText(element, text, speed = 30) {
+/* close sidebar on outside click (mobile) */
+document.addEventListener("click", function (e) {
+    const sidebar = document.getElementById("sidebar");
+    const btn = document.querySelector(".menu-btn");
 
-    element.innerText = "";
-
-    for (let i = 0; i < text.length; i++) {
-
-        element.innerText += text.charAt(i);
-
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        await new Promise(resolve =>
-            setTimeout(resolve, speed)
-        );
-    }
-}
-
-// ------------------------------
-// ENTER KEY HANDLING
-// ------------------------------
-input.addEventListener("keydown", (e) => {
-
-    // Shift + Enter = new line
-    if (e.key === "Enter" && e.shiftKey) {
-        return;
-    }
-
-    // Enter = send
-    if (e.key === "Enter") {
-
-        e.preventDefault();
-
-        sendMessage();
+    if (window.innerWidth <= 768) {
+        if (
+            sidebar.classList.contains("active") &&
+            !sidebar.contains(e.target) &&
+            !btn.contains(e.target)
+        ) {
+            sidebar.classList.remove("active");
+        }
     }
 });
 
-// ------------------------------
-// SEND MESSAGE
-// ------------------------------
-async function sendMessage() {
+/* ================= NEW CHAT ================= */
+function newChat() {
+    document.getElementById("chat-area").innerHTML = "";
+    addMessage("bot", "New chat started ??");
+}
 
+/* ================= SEND MESSAGE ================= */
+function sendMessage() {
+    const input = document.getElementById("user-input");
     const text = input.value.trim();
 
     if (!text) return;
 
-    // user message
     addMessage("user", text);
 
     input.value = "";
+    autoResize();
 
-    // reset textarea height
-    input.style.height = "auto";
-
-    // assistant placeholder
-    const aiMsg = addMessage("assistant", "Thinking...");
-
-    try {
-
-        const res = await fetch(
-            "https://cognivexplus-9.onrender.com/chat",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    message: text
-                })
-            }
-        );
-
-        const data = await res.json();
-
-        const reply = data.reply || "No response";
-
-        // typewriter animation
-        await typeText(aiMsg, reply, 30);
-
-    } catch (err) {
-
-        console.error(err);
-
-        aiMsg.innerText = "Error connecting to AI backend.";
-    }
-
-    chatBox.scrollTop = chatBox.scrollHeight;
+    setTimeout(() => {
+        addMessage("bot", "I received: " + text);
+    }, 400);
 }
 
-// ------------------------------
-// SEND BUTTON
-// ------------------------------
-sendBtn.addEventListener("click", sendMessage);
+/* ================= ADD MESSAGE ================= */
+function addMessage(type, text) {
+    const chat = document.getElementById("chat-area");
 
-// ------------------------------
-// AUTO RESIZE TEXTAREA
-// ------------------------------
-input.addEventListener("input", () => {
+    const msg = document.createElement("div");
+    msg.classList.add("message", type);
 
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    bubble.textContent = text;
+
+    msg.appendChild(bubble);
+    chat.appendChild(msg);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+/* ================= SEND BUTTON ================= */
+document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+/* ================= INPUT AUTO RESIZE ================= */
+const input = document.getElementById("user-input");
+
+function autoResize() {
     input.style.height = "auto";
+    input.style.height = Math.min(input.scrollHeight, 140) + "px";
+}
 
-    input.style.height = input.scrollHeight + "px";
-});`
+input.addEventListener("input", autoResize);
+
+/* ================= MOBILE DETECT ================= */
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
+/* ================= KEYBOARD HANDLING ================= */
+input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+
+        if (isMobile()) {
+            return; // mobile = newline only
+        }
+
+        if (!e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+});
